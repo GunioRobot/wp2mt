@@ -6,14 +6,14 @@ require 'getoptlong'
 
 class Wp2Mt
 
-  def initialize 
+  def initialize
     @database = ""
     @host = ""
     @port = ""
     @user = ""
     @password = ""
     @table_prefix = ""
-    @opts = GetoptLong.new( 
+    @opts = GetoptLong.new(
     ['--database', '-d', GetoptLong::REQUIRED_ARGUMENT],
     ['--host', '-h', GetoptLong::REQUIRED_ARGUMENT],
     ['--port', '-p', GetoptLong::REQUIRED_ARGUMENT],
@@ -22,12 +22,12 @@ class Wp2Mt
     ['--table-prefix', '-t', GetoptLong::REQUIRED_ARGUMENT]
     )
   end
-  
+
   def do_conversion
     parse_args
     if check_mandatory_params
       begin
-        puts    WordPress::Connection.new(@database,@host,@port,@user,@password,@table_prefix).get_blog_content.to_s  
+        puts    WordPress::Connection.new(@database,@host,@port,@user,@password,@table_prefix).get_blog_content.to_s
       rescue WordPress::ConnectionError => e
         puts e.message
       end
@@ -37,9 +37,9 @@ class Wp2Mt
   end
 
   private
-   
+
   def parse_args
-    @opts.each do |opt, arg| 
+    @opts.each do |opt, arg|
       case opt
         when '--database'
           @database = arg
